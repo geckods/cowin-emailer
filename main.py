@@ -45,7 +45,7 @@ headers = {
 
 def getDateString(daysToAdd):
     abc = datetime.now()
-    abc += timedelta(days = daysToAdd)
+    abc += timedelta(days=daysToAdd)
     return datetime.now().strftime("%d-%m-%Y")
 
 
@@ -91,14 +91,19 @@ def sendEmail(goodSessions):
 
     print("EMAIL SENT!!")
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # print(checkChennai())
-    chennaiSessions = checkDistrict(571, getDateString(0))
+
+    daySessions = [checkDistrict(571, getDateString(0)), checkDistrict(571, getDateString(1)), checkDistrict(571, getDateString(2)), checkDistrict(571, getDateString(3)), checkDistrict(571, getDateString(4)), checkDistrict(571, getDateString(5))]
+
     goodSessions = []
-    for sess in chennaiSessions['sessions']:
-        if isGoodSession(sess):
-            goodSessions.append(sess)
+    for chennaiSessions in daySessions:
+        for sess in chennaiSessions['sessions']:
+            # print("HI")
+            if isGoodSession(sess):
+                goodSessions.append(sess)
 
     if len(goodSessions) > 0:
         sendEmail(goodSessions)
