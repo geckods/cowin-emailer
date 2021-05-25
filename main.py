@@ -96,11 +96,12 @@ def sendEmail(goodSessions):
 if __name__ == '__main__':
     # print(checkChennai())
 
-    daySessions = [checkDistrict(571, getDateString(0)), checkDistrict(571, getDateString(1)), checkDistrict(571, getDateString(2)), checkDistrict(571, getDateString(3))]
+    daySessions = [checkDistrict(571, getDateString(0)), checkDistrict(571, getDateString(1)), checkDistrict(571, getDateString(2)), checkDistrict(571, getDateString(3)), checkDistrict(571, getDateString(4)), checkDistrict(571, getDateString(5))]
 
     goodSessions = []
     for chennaiSessions in daySessions:
         for sess in chennaiSessions['sessions']:
+            # print("HI")
             if isGoodSession(sess):
                 goodSessions.append(sess)
 
