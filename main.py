@@ -58,7 +58,7 @@ def checkDistrict(districtNumber, dateString):
 
 
 def isGoodSession(sess):
-    return sess['min_age_limit'] <= 45 and sess['available_capacity_dose1'] > 0
+    return sess['min_age_limit'] <= 21 and sess['available_capacity_dose1'] > 0
 
 
 def sendEmail(goodSessions):
