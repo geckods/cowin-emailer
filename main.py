@@ -58,35 +58,40 @@ def checkDistrict(districtNumber, dateString):
 
 
 def isGoodSession(sess):
-    return sess['min_age_limit'] <= 21 and sess['available_capacity_dose1'] > 0
+    return sess['min_age_limit'] <= 45 and sess['available_capacity_dose1'] > 0
 
 
 def sendEmail(goodSessions):
     print("SENDING EMAIL!!")
 
     port = 465  # For SSL
-    password = "$k8MGl&B#PC2$dxi"
+    password = "fupwqiuiqzcfezzk"
 
     # Create a secure SSL context
     context = ssl.create_default_context()
 
-    message = """From: Gecko Test <geckotest79@gmail.com>\n
-    To: Abhinav Ramachandran <geckods@gmail.com>\n
-    Subject: COWIN Updates\n
-    
-    These are the COWIN Updates:\n
-    """
+    message = """\
+From: Gecko Test <geckotest79@yahoo.com>\nTo: Abhinav Ramachandran <geckods@gmail.com>\nSubject: COWIN Updates\n\n
+
+These are the COWIN Updates:
+"""
+
+    message += "THE TIME IS " + str(datetime.now()) + "\n"
 
     for sess in goodSessions:
         message += "GOOD SESSION:\n"
-        message += json.dumps(sess)
-        message += "\n"
+        # message += json.dumps(sess)
+        message += "Name: " + sess["name"] + "\n"
+        message += "Vaccine: " + str(sess["vaccine"]) + "\n"
+        message += "Available Sessions: " + str(sess["available_capacity_dose1"])
+        message += "\n\n"
 
-    server = smtplib.SMTP('smtp.gmail.com')
-    server.starttls()
-    server.login("geckotest79@gmail.com", password)
+    server = smtplib.SMTP_SSL('smtp.mail.yahoo.com')
+    # server.starttls()
+    server.set_debuglevel(1)
+    server.login("geckotest79@yahoo.com", password)
     # TODO: Send email here
-    server.sendmail("geckotest79@gmail.com", "geckods@gmail.com", message)
+    server.sendmail("geckotest79@yahoo.com", "geckods@gmail.com", message)
     server.quit()
 
     print("EMAIL SENT!!")
@@ -95,15 +100,19 @@ def sendEmail(goodSessions):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # print(checkChennai())
-
+    print("Program Is Starting")
     daySessions = [checkDistrict(571, getDateString(0)), checkDistrict(571, getDateString(1)), checkDistrict(571, getDateString(2)), checkDistrict(571, getDateString(3)), checkDistrict(571, getDateString(4)), checkDistrict(571, getDateString(5))]
-
     goodSessions = []
+    numSessions = 0
     for chennaiSessions in daySessions:
         for sess in chennaiSessions['sessions']:
             # print("HI")
+            numSessions += 1
             if isGoodSession(sess):
                 goodSessions.append(sess)
+
+    print("Collated a total of", numSessions, "sessions.")
+    print("There are", len(goodSessions), "good sessions.")
 
     if len(goodSessions) > 0:
         sendEmail(goodSessions)
