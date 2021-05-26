@@ -71,7 +71,7 @@ def sendEmail(goodSessions):
     context = ssl.create_default_context()
 
     message = """\
-From: Gecko Test <geckotest79@yahoo.com>\nTo: Abhinav Ramachandran <geckods@gmail.com>\nSubject: COWIN Updates\n\n
+From: Gecko Test <geckotest79@yahoo.com>\nTo: Abhinav Ramachandran <geckods@gmail.com>\nSubject: COWIN Updates PROD\n\n
 
 These are the COWIN Updates:
 """
